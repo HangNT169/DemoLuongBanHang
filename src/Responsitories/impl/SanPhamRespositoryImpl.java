@@ -27,8 +27,7 @@ public class SanPhamRespositoryImpl implements SanPhamRespository {
                         SELECT id, ten_san_pham, so_luong, gia_nhap, gia_ban, mieu_ta
                         FROM WS_FA22_BL1.dbo.san_pham;
                        """;
-        try (Connection con = DBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement(query);) {
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(query);) {
             ResultSet rs = ps.executeQuery();
             List<SanPhamResponse> listSanPhams = new ArrayList<>();
             while (rs.next()) {
@@ -52,8 +51,7 @@ public class SanPhamRespositoryImpl implements SanPhamRespository {
                        FROM WS_FA22_BL1.dbo.san_pham
                        WHERE id = ?
                        """;
-        try (Connection con = DBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement(query);) {
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(query);) {
             ps.setObject(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -66,6 +64,24 @@ public class SanPhamRespositoryImpl implements SanPhamRespository {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+
+    @Override
+    public boolean update(String id, int soLuong) {
+        int check = 0;
+        String query = """
+                       UPDATE WS_FA22_BL1.dbo.san_pham
+                       SET so_luong= ? 
+                       WHERE id= ?
+                       """;
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(query);) {
+            ps.setObject(1, soLuong);
+            ps.setObject(2, id);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
     }
 
 }

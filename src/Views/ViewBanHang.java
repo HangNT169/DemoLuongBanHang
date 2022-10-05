@@ -15,7 +15,9 @@ import ViewModels.HoaDonChiTietResponse;
 import ViewModels.HoaDonResponse;
 import ViewModels.SanPhamResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +30,7 @@ public class ViewBanHang extends javax.swing.JFrame {
     private final List<SanPhamResponse> listSanPhams;
     private List<HoaDonChiTietResponse> listHoaDonChiTiets;
     private List<HoaDonResponse> listHoaDons;
+    private Map<SanPhamResponse, Integer> maps;
     private final DefaultTableModel dtmHoaDon;
     private DefaultTableModel dtmHoaDonChiTiet;
     private final DefaultTableModel dtmSanPham;
@@ -45,6 +48,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         hoaDonChiTietService = new HoaDonChiTietServiceImpl();
         sanPhamService = new SanPhamServiceImpl();
         listHoaDonChiTiets = new ArrayList<>();
+        maps = new HashMap<>();
         dtmHoaDonChiTiet = (DefaultTableModel) tbHoaDonChiTiet.getModel();
         indexHoaDonSelected = 0;
 
@@ -344,6 +348,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         sanPhamResponse.setSoLuong(sanPhamResponse.getSoLuong() - Integer.valueOf(soLuong));
         listSanPhams.set(row, sanPhamResponse);
         showTableSanPham(listSanPhams);
+        maps.put(sanPhamResponse, sanPhamResponse.getSoLuong() - Integer.valueOf(soLuong));
 
         // show table hoa don chi tiet
         showTableHoaDonChiTiet(listHoaDonChiTiets);
@@ -374,6 +379,9 @@ public class ViewBanHang extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this,
                 hoaDonChiTietService.addListOrder(hoaDonResponse.getId(),
                         listHoaDonChiTiets));
+
+        // update số lượng product 
+        sanPhamService.update(maps);
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void showTableHoaDon(List<HoaDonResponse> lists) {

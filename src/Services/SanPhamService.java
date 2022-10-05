@@ -7,6 +7,7 @@ package Services;
 import DomainModels.SanPham;
 import ViewModels.SanPhamResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface SanPhamService {
     List<SanPhamResponse> getAll();
 
     SanPham getOne(String id);
-    
+
+    void update(Map<SanPhamResponse, Integer> sanPhamResponse);
+
 }

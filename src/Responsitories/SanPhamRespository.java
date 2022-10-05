@@ -18,4 +18,6 @@ public interface SanPhamRespository {
 
     SanPham getOne(String id);
 
+    boolean update(String id,int soLuong);
+    
 }

@@ -10,6 +10,7 @@ import Responsitories.impl.SanPhamRespositoryImpl;
 import Services.SanPhamService;
 import ViewModels.SanPhamResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -28,6 +29,16 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public SanPham getOne(String id) {
         return sanPhamRespository.getOne(id);
+    }
+
+    @Override
+    public void update(Map<SanPhamResponse, Integer> sanPhamResponse) {
+        sanPhamResponse.forEach(
+                (k, v) -> {
+                    sanPhamRespository.update(k.getId(), v);
+                }
+        );
+
     }
 
 }
