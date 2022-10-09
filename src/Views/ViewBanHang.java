@@ -348,7 +348,7 @@ public class ViewBanHang extends javax.swing.JFrame {
         sanPhamResponse.setSoLuong(sanPhamResponse.getSoLuong() - Integer.valueOf(soLuong));
         listSanPhams.set(row, sanPhamResponse);
         showTableSanPham(listSanPhams);
-        maps.put(sanPhamResponse, sanPhamResponse.getSoLuong() - Integer.valueOf(soLuong));
+        maps.put(sanPhamResponse, sanPhamResponse.getSoLuong());
 
         // show table hoa don chi tiet
         showTableHoaDonChiTiet(listHoaDonChiTiets);
